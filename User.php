@@ -128,6 +128,54 @@ class User extends database implements operations{
 
     }
 
+    public function updateProfileInfo()
+    {
+        $query = "UPDATE `users` 
+        SET `users`.`name` = '$this->name' ,
+        `users`.`gender` = '$this->gender' ,
+        `users`.`phone` = '$this->phone'";
+            if($this->photo){
+                $query .= " , `users`.`photo` = '$this->photo' ";
+            }
+         $query .= "WHERE `users`.`id` = '$this->id' ";
+        return $this->runDML($query);
+    }
+
+    public function updateEmail()
+    {
+       $query = "UPDATE `users` 
+       SET `users`.`email` = '$this->email' ,
+        `users`.`status` = '$this->status' ,
+        `users`.`code` = '$this->code' 
+        WHERE `users`.`id` = $this->id ";
+        return $this->runDML($query);
+    }
+
+    public function updatePassword()
+    {
+       $query = "UPDATE `users`
+       SET `users`.`password` = '$this->pass' WHERE `users`.`id` = $this->id";
+        return $this->runDML($query);
+
+    }
+
+    public function checkEmail()
+    {
+        $query = "SELECT `users`.* FROM `users`  WHERE `users`.`email` = '$this->email'";
+        return $this->runDQL($query);
+    }
+
+    public function updateCode()
+    {
+       $query = "UPDATE `users` SET `users`.`code` = '$this->code' WHERE `users`.`email` = '$this->email' ";
+       return $this->runDML($query);
+    }
+
+    public function getUserByEmail()
+    {
+        $query = "SELECT `users`.* FROM `users` WHERE `users`.`email` = '$this->email' ";
+        return $this->runDQL($query);
+    }
 }
 
 ?>

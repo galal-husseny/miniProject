@@ -99,9 +99,9 @@ require 'vendor/autoload.php';
                                                 <?php echo(isset($errors['login']) ? $errors['login'] : '') ?>
                                                 <div class="button-box">
                                                     <div class="login-toggle-btn">
-                                                        <input type="checkbox">
+                                                        <!-- <input type="checkbox"> -->
                                                         <!-- <label>Remember me</label> -->
-                                                        <a href="#">Forgot Password?</a>
+                                                        <a href="forget-password.php">Forgot Password?</a>
                                                     </div>
 
                                                     <button type="submit"><span>Login</span></button>

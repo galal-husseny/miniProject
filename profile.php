@@ -3,6 +3,14 @@ include_once "header.php";
 if(!isset($_SESSION['user'])){
     header('Location:index.php');
 }
+include_once "User.php";
+// Import PHPMailer classes into the global namespace
+// These must be at the top of your script, not inside a function
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+// Load Composer's autoloader
+require 'vendor/autoload.php';
 ?>
 
  <!-- Breadcrumb Area Start -->
@@ -26,18 +34,71 @@ if(!isset($_SESSION['user'])){
                 <div class="checkout-wrapper">
                     <div id="faq" class="panel-group">
                         <div class="panel panel-default">
-                            <form method="POST">
+                            <form method="POST" enctype="multipart/form-data">
 
                             <div class="panel-heading">
                                 <h5 class="panel-title"><span>1</span> <a data-toggle="collapse" data-parent="#faq" href="#my-account-1">Edit your account information </a></h5>
                             </div>
-                            <div id="my-account-1" class="panel-collapse collapse show">
+                            <div id="my-account-1" class="panel-collapse collapse <?php echo(isset($_POST['info']) ? 'show' : '') ?>">
+                                <?php
+                                    // information form logic
+                                    // print_r($_POST);
+                                    if(isset($_POST['info']) && $_POST['name']  && $_POST['phone'] && $_POST['gender']){
+                                       
+                                       $updatedData = new User();
+                                       $updatedData->setId($_SESSION['user']->id);
+                                       $updatedData->setName($_POST['name']);
+                                       $updatedData->setGender($_POST['gender']);
+                                       $updatedData->setPhone($_POST['phone']);
 
+                                       if($_FILES['photo']['name']){
+                                            $directory = 'uploads/users/';
+                                            $extension = pathinfo($_FILES['photo']['name'],PATHINFO_EXTENSION);
+                                            $imageName = time() . '.' .$extension;
+                                            $fullPath = $directory . $imageName;
+
+                                            $errors = [];
+                                            $success = [];
+                                            if($_FILES['photo']['size'] > 100000){
+                                                $errors['size'] = "<div class='alert alert-danger'> you must upload image less than 1 MegaByte </div>";
+                                            }
+
+                                            $arrayExt = ['png','jpg','jpeg'];
+                                            if(!in_array($extension,$arrayExt)) {
+                                                $errors['ext'] = "<div class='alert alert-danger'> you must upload image with extension png,jpg,jpeg </div>";
+                                            }
+
+                                            if(empty($errors)){
+                                                move_uploaded_file($_FILES['photo']['tmp_name'],$fullPath);
+                                                $updatedData->setPhoto($imageName);
+                                                $_SESSION['user']->photo = $updatedData->getPhoto();
+                                            }
+
+                                       }
+                                       
+                                       $result = $updatedData->updateProfileInfo();
+                                       if($result){
+                                            $success['updateInfo'] = "<div class='alert alert-success'>Information has been updated</div>";
+                                            $_SESSION['user']->name = $_POST['name'];
+                                            $_SESSION['user']->gender = $_POST['gender'];
+                                            $_SESSION['user']->phone = $_POST['phone'];
+                                       }else{
+                                            $errors['serverError'] = "<div class='alert alert-danger'> Something Went wrong </div>";
+                                       }
+
+                                    }
+                                ?>
                                 <div class="panel-body">
                                     <div class="billing-information-wrapper">
                                         <div class="account-info-wrapper">
                                             <h4>My Account Information</h4>
                                             <h5>Your Personal Details</h5>
+                                            <?php
+                                             echo(isset($errors['serverError']) ? $errors['serverError'] :  '' );
+                                             if(empty($errors)){
+                                                echo(isset($success['updateInfo']) ? $success['updateInfo'] :  '' );
+                                             }
+                                             ?>
                                         </div>
                                         <div class="row">
                                                 <div class="col-lg-12 col-md-12">
@@ -45,6 +106,12 @@ if(!isset($_SESSION['user'])){
                                                         <div class="offest-4 col-4">
                                                             <img src="uploads/users/<?php echo $_SESSION['user']->photo; ?>" alt="" class="rounded" style="width:100%;">
                                                             <input type="file" name="photo" id="">
+                                                        </div>
+                                                        <div class="col-12"> 
+                                                            <?php 
+                                                                echo(isset($errors['size']) ? $errors['size'] :  '' );
+                                                                echo(isset($errors['ext']) ? $errors['ext'] :  '' );
+                                                            ?>
                                                         </div>
                                                     
                                                     </div>
@@ -76,7 +143,7 @@ if(!isset($_SESSION['user'])){
                                                 <a href="#"><i class="ion-arrow-up-c"></i> back</a>
                                             </div>
                                             <div class="billing-btn">
-                                                <button type="submit">Continue</button>
+                                                <button name="info">Continue</button>
                                             </div>
                                         </div>
                                     </div>
@@ -90,17 +157,84 @@ if(!isset($_SESSION['user'])){
                             <div class="panel-heading">
                                 <h5 class="panel-title"><span>2</span> <a data-toggle="collapse" data-parent="#faq" href="#my-account-2">Change your Email </a></h5>
                             </div>
-                            <div id="my-account-2" class="panel-collapse collapse">
+                            <div id="my-account-2" class="panel-collapse collapse <?php echo(isset($_POST['emailInfo']) ? 'show' : '') ?>">
                                 <div class="panel-body">
                                     <div class="billing-information-wrapper">
+                                        <?php
+                                            if(isset($_POST['emailInfo']) && $_POST['email']){
+                                                $newEmail = new User();
+                                                // $newEmail->setEmail($_POST['email']);
+                                                $errors = [];
+                                                if($_POST['email'] == $_SESSION['user']->email){
+                                                    $errors['email'] = "<div class='alert alert-danger'> Email Not changed </div>";
+                                                }
 
+                                                if(empty($errors)){
+                                                    $newEmail->setId($_SESSION['user']->id);
+                                                    $newEmail->setEmail($_POST['email']);
+                                                    $newEmail->setStatus(2);
+                                                    $code = rand(10000,99999);
+                                                    $newEmail->setCode($code);
+                                                    $result = $newEmail->updateEmail();
+                                                    if($result){
+
+                                                        $_SESSION['user']->email = $newEmail->getEmail();
+                                                        $_SESSION['user']->status = $newEmail->getStatus();
+                                                        $mail = new PHPMailer(true);
+
+                                                        try {
+                                                            //Server settings
+                                                            // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+                                                            $mail->isSMTP();                                            // Send using SMTP
+                                                            $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+                                                            $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+                                                            $mail->Username   = 'ntiecommerce585@gmail.com';                     // SMTP username
+                                                            $mail->Password   = 'NTI@123456';                               // SMTP password
+                                                            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+                                                            $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+
+                                                            //Recipients
+                                                            $mail->setFrom('ntiecommerce585@gmail.com', 'NTI Ecoomerce');
+                                                            $mail->addAddress($newEmail->getEmail());     // Add a recipient
+
+                                                            // Content
+                                                            $mail->isHTML(true);                                  // Set email format to HTML
+                                                            $mail->Subject = 'Verfication Code';
+                                                            $mail->Body    = "Your verification code: <b>".$newEmail->getCode()."</b>";
+
+                                                            $mail->send();
+                                                            header('Location:checkCode.php?email='.$newEmail->getEmail());
+                                                            // echo 'Message has been sent';
+                                                        } catch (Exception $e) {
+                                                            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                                                        }
+
+                                                    }else{
+                                                        $errors['serverError'] = "<div class='alert alert-danger'> Email already exists </div>";
+                                                    }
+                                                }
+
+                                            }
+                                        ?>
                                         <div class="row">
+                                                <div class="col-12">
+                                                    <?php
+                                                        echo(isset($errors['serverError']) ? $errors['serverError'] :  '' );
+                                                    ?>
+                                                </div>
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="billing-info">
                                                     <label>Email Address</label>
-                                                    <input type="email" name="email">
+                                                    <input type="email" name="email" value="<?php echo $_SESSION['user']->email ?>">
                                                 </div>
+
                                                 
+                                                
+                                            </div>
+                                            <div class="col-12">
+                                                <?php
+                                                    echo(isset($errors['email']) ? $errors['email'] :  '' );
+                                                ?>
                                             </div>
                                         </div>
                                         <div class="billing-back-btn">
@@ -108,7 +242,7 @@ if(!isset($_SESSION['user'])){
                                                     <a href="#"><i class="ion-arrow-up-c"></i> back</a>
                                                 </div>
                                                 <div class="billing-btn">
-                                                    <button type="submit">Continue</button>
+                                                    <button  name="emailInfo">Continue</button>
                                                 </div>
                                         </div>
                                     </div>
@@ -121,31 +255,91 @@ if(!isset($_SESSION['user'])){
                             <div class="panel-heading">
                                 <h5 class="panel-title"><span>2</span> <a data-toggle="collapse" data-parent="#faq" href="#my-account-5">Change your password </a></h5>
                             </div>
-                            <div id="my-account-5" class="panel-collapse collapse">
+                            <div id="my-account-5" class="panel-collapse collapse  <?php echo(isset($_POST['passInfo']) ? 'show' : '') ?>"">
                                 <div class="panel-body">
                                     <div class="billing-information-wrapper">
+                                    <?php
+                                        if(isset($_POST['passInfo']) && $_POST['old_password'] && $_POST['new_password'] && $_POST['confirm_password'] ){
+                                            $updatedPass = new User();
+                                            $updatedPass->setId($_SESSION['user']->id);
+                                            $updatedPass->setPass($_POST['old_password']);
+                                            $errors = [];
+
+                                            if($updatedPass->getPass() != $_SESSION['user']->password) {
+                                                $errors['old_pass'] = "<div class='alert alert-danger'> Wrong Password </div>";
+                                            }
+                                            $updatedPass->setPass($_POST['new_password']);
+                                            if($updatedPass->getPass() == $_SESSION['user']->password){
+                                                $errors['same_pass'] = "<div class='alert alert-danger'> Password dosen't change </div>";
+                                            }
+
+                                            if($_POST['new_password'] != $_POST['confirm_password']){
+                                                $errors['confirm_pass'] = "<div class='alert alert-danger'> Password not confirmed </div>";
+                                            }
+                                            $pattern = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/";
+                                            if(!preg_match($pattern, $_POST['new_password'] )){
+                                                $errors['regex_pass'] = "<div class='alert alert-danger'> Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character: </div>";
+                                            }
+                                            
+                                            if(empty($errors)){
+                                                $result = $updatedPass->updatePassword();
+                                                if($result){
+                                                    $success['updateInfo'] = "<div class='alert alert-success'>Information has been updated</div>";
+                                                    $_SESSION['user']->password = $updatedPass->getPass();
+                                                }else{
+                                                    $errors['serverError'] = "<div class='alert alert-danger'> Something Went wrong </div>";
+                                                }
+                                            }
+
+                                            // $updatedPass->setPass($_POST['new_password']);
+                                            // $updatedPass->setPass($_POST['confirm_password']);
+                                        }
+                                    ?>
                                         <div class="account-info-wrapper">
                                             <h4>Change Password</h4>
                                             <h5>Your Password</h5>
+                                            <?php
+                                            if(empty($errors)){
+                                                echo(isset($success['updateInfo']) ? $success['updateInfo'] : '' );
+                                            }
+                                            ?>
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="billing-info">
                                                     <label>Old Password</label>
-                                                    <input type="password">
+                                                    <input type="password" name="old_password">
                                                 </div>
                                             </div>
+                                            <div class="col-12">
+                                            <?php
+                                            echo(isset($errors['old_pass']) ? $errors['old_pass'] : '' );
+                                            ?>
+                                            </div>
+                                            
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="billing-info">
                                                     <label>New Password</label>
-                                                    <input type="new_password">
+                                                    <input type="password" name="new_password">
                                                 </div>
+                                            </div>
+                                            <div class="col-12">
+                                            <?php
+                                            echo(isset($errors['regex_pass']) ? $errors['regex_pass'] : '' );
+                                            echo(isset($errors['same_pass']) ? $errors['same_pass'] : '' );
+
+                                            ?>
                                             </div>
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="billing-info">
                                                     <label>Password Confirm</label>
-                                                    <input type="password">
+                                                    <input type="password" name="confirm_password">
                                                 </div>
+                                            </div>
+                                            <div class="col-12">
+                                            <?php
+                                            echo(isset($errors['confirm_pass']) ? $errors['confirm_pass'] : '' );
+                                            ?>
                                             </div>
                                         </div>
                                         <div class="billing-back-btn">
@@ -153,7 +347,7 @@ if(!isset($_SESSION['user'])){
                                                 <a href="#"><i class="ion-arrow-up-c"></i> back</a>
                                             </div>
                                             <div class="billing-btn">
-                                                <button type="submit">Continue</button>
+                                                <button name="passInfo">Continue</button>
                                             </div>
                                         </div>
                                     </div>

@@ -2,7 +2,19 @@
 
 include_once "header.php";
 ?>
-
+ <!-- Breadcrumb Area Start -->
+ <div class="breadcrumb-area bg-image-3 ptb-150">
+            <div class="container">
+                <div class="breadcrumb-content text-center">
+					<h3>Check Code</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li class="active">Check Code</li>
+                    </ul>
+                </div>
+            </div>
+</div>
+		<!-- Breadcrumb Area End -->
 <div class="container">
     <div class="row">
         <div class="offset-4 col-4">
@@ -22,8 +34,21 @@ include_once "header.php";
                     if(!empty($_POST)){
                         $check->setCode($_POST['code']);
                         $result = $check->checkCode();
+
+                       
                         if(!empty($result)){
-                            // user verified 
+                            // user verified
+
+                            // if you came from forget password page only 
+                            // var_dump(isset($_GET['forget']));die;
+                            if(isset($_GET['forget']) && $_GET['forget'] === 'true'){
+                                
+                                header('Location:change-password.php?email='.$check->getEmail());
+                                die;
+                            }
+                            
+
+
                             $user = $result->fetch_object();
                             $check->setStatus(1);
                             $result2 = $check->updateStatus();
