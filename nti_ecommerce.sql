@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 11, 2021 at 02:50 PM
+-- Generation Time: Jan 13, 2021 at 03:48 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.10
 
@@ -39,6 +39,15 @@ CREATE TABLE `address` (
   `region_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `address`
+--
+
+INSERT INTO `address` (`id`, `street`, `building`, `floor`, `flat`, `details`, `user_id`, `region_id`) VALUES
+(4, 'dd', 2, '3', 2, NULL, 13, 2),
+(7, 'haramxx', 22, '7', 3, 'xxvv', 12, 4),
+(9, 'ggll', 6, '2', 5, 'sadadfs', 12, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -48,8 +57,16 @@ CREATE TABLE `address` (
 CREATE TABLE `brands` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(10) NOT NULL,
-  `photo` varchar(255) DEFAULT '''default.png'''
+  `photo` varchar(255) DEFAULT 'default.png'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `brands`
+--
+
+INSERT INTO `brands` (`id`, `name`, `photo`) VALUES
+(1, 'emtnan', 'default.png'),
+(2, 'isis', 'default.png');
 
 -- --------------------------------------------------------
 
@@ -75,6 +92,14 @@ CREATE TABLE `categories` (
   `photo` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`id`, `name`, `photo`) VALUES
+(1, 'a3shab', '1.png'),
+(2, 'mshrobat', '2.png');
+
 -- --------------------------------------------------------
 
 --
@@ -87,6 +112,14 @@ CREATE TABLE `cities` (
   `latitude` varchar(30) NOT NULL,
   `longitude` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `cities`
+--
+
+INSERT INTO `cities` (`id`, `name`, `latitude`, `longitude`) VALUES
+(1, 'Cairo', '30.1', '30.1'),
+(2, 'Giza', '30.6', '30.9');
 
 -- --------------------------------------------------------
 
@@ -133,9 +166,18 @@ CREATE TABLE `orders` (
   `latitude` double NOT NULL,
   `langitude` double NOT NULL,
   `status` tinyint(2) NOT NULL DEFAULT 2,
-  `coupon_id` int(10) UNSIGNED NOT NULL,
+  `coupon_id` int(10) UNSIGNED DEFAULT NULL,
   `user_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `total`, `date`, `latitude`, `langitude`, `status`, `coupon_id`, `user_id`) VALUES
+(1, '500', '2021-01-13', 30.2, 30.5, 2, NULL, 12),
+(2, '600', '2021-01-12', 30.6, 30.9, 2, NULL, 12),
+(3, '900', '2021-01-04', 30.6, 30.9, 2, NULL, 13);
 
 -- --------------------------------------------------------
 
@@ -145,13 +187,29 @@ CREATE TABLE `orders` (
 
 CREATE TABLE `products` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(30) NOT NULL,
-  `price` float(8,2) NOT NULL,
-  `code` int(30) NOT NULL,
-  `supplie_id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `price` float(10,2) NOT NULL,
+  `details` text NOT NULL,
+  `photo` varchar(255) NOT NULL,
   `brand_id` int(10) UNSIGNED NOT NULL,
-  `categorie_id` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `sub_category_id` int(10) UNSIGNED DEFAULT NULL,
+  `supplier_id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `name`, `price`, `details`, `photo`, `brand_id`, `sub_category_id`, `supplier_id`, `created_at`, `updated_at`) VALUES
+(1, 'yanson', 20.00, '1312asdas', 'product-1.jpg', 2, 1, 2, '2021-01-13 11:49:39', '2021-01-13 12:52:47'),
+(2, 'n3na3', 25.00, 'sdfmsl', 'product-2.jpg', 2, 1, 2, '2021-01-12 11:49:39', '2021-01-13 12:52:53'),
+(3, '2rfa', 15.00, 'lnjds', 'product-3.jpg', 2, 1, 2, '2021-01-12 22:00:00', '2021-01-13 12:52:59'),
+(4, 'gnzbel', 10.00, 'dsmf', 'product-4.jpg', 2, 2, 2, '2021-01-04 11:49:39', '2021-01-13 12:53:07'),
+(5, 'tlyo', 65.00, 'klmdv', 'product-5.jpg', 1, 4, 1, '2021-01-13 11:49:39', '2021-01-13 12:53:12'),
+(6, 'banbog', 30.00, 'sjns', 'product-6.jpg', 1, 3, 1, '2021-01-08 11:49:39', '2021-01-13 12:53:16'),
+(7, 'shay a5dr', 90.00, 'hhgjhnk', 'product-7.jpg', 1, 3, 1, '2021-01-13 11:49:39', '2021-01-13 12:53:21');
 
 -- --------------------------------------------------------
 
@@ -191,6 +249,17 @@ CREATE TABLE `regions` (
   `citie_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `regions`
+--
+
+INSERT INTO `regions` (`id`, `name`, `latitude`, `longitude`, `citie_id`) VALUES
+(1, 'abbas', '30.6', '30.7', 1),
+(2, 'makram', '30.6', '30.1', 1),
+(3, 'Maser gdeda', '30.6', '30.9', 1),
+(4, 'Haram', '30.9', '30.8', 2),
+(5, 'Zayed', '30.8', '30.6', 2);
+
 -- --------------------------------------------------------
 
 --
@@ -209,11 +278,24 @@ CREATE TABLE `roffersproducts` (
 --
 
 CREATE TABLE `rproductsorder` (
-  `product_id` int(10) UNSIGNED NOT NULL,
   `order_id` int(10) UNSIGNED NOT NULL,
+  `product_id` int(10) UNSIGNED NOT NULL,
   `quantity` int(10) NOT NULL,
   `price` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `rproductsorder`
+--
+
+INSERT INTO `rproductsorder` (`order_id`, `product_id`, `quantity`, `price`) VALUES
+(3, 1, 6, '10'),
+(1, 2, 2, '100'),
+(2, 2, 100, '6'),
+(3, 2, 2, '100'),
+(3, 3, 5, '100'),
+(1, 6, 6, '50'),
+(3, 6, 2, '100');
 
 -- --------------------------------------------------------
 
@@ -241,6 +323,16 @@ CREATE TABLE `sub_cate` (
   `photo` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `sub_cate`
+--
+
+INSERT INTO `sub_cate` (`id`, `categorie_id`, `name`, `photo`) VALUES
+(1, 1, 'fresh', '1.png'),
+(2, 1, 'dry', '2.png'),
+(3, 2, 'so5na', '1.png'),
+(4, 2, 'barda', '2.png');
+
 -- --------------------------------------------------------
 
 --
@@ -248,13 +340,21 @@ CREATE TABLE `sub_cate` (
 --
 
 CREATE TABLE `suppliers` (
-  `id` int(10) NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(30) NOT NULL,
   `nationalid` int(50) NOT NULL,
   `email` varchar(30) NOT NULL,
   `phone` int(20) NOT NULL,
-  `photo` varchar(255) DEFAULT '''default.png'''
+  `photo` varchar(255) DEFAULT 'default.png'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `suppliers`
+--
+
+INSERT INTO `suppliers` (`id`, `name`, `nationalid`, `email`, `phone`, `photo`) VALUES
+(1, 'emtnan', 123154645, 'emtnan@gmail.com', 12345678, 'default.png'),
+(2, 'isis', 123456879, 'isis@gmail.com', 12354122, 'default.png');
 
 -- --------------------------------------------------------
 
@@ -281,7 +381,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `phone`, `email`, `password`, `gender`, `photo`, `status`, `code`, `create_at`, `updated_at`) VALUES
-(12, 'Galal Husseny2', '01100121352', 'galal.husseny@gmail.com', 'fe012728adea02cdc41c5deb4cbe79d6e8b57d26', 'm', 'default.png', 1, 87559, '2021-01-11 10:52:10', '2021-01-11 10:52:10'),
+(12, 'Galal Husseny', '01000498488', 'galal.husseny@gmail.com', 'fe012728adea02cdc41c5deb4cbe79d6e8b57d26', 'm', '1610442656.jpg', 1, 40944, '2021-01-11 10:52:10', '2021-01-11 10:52:10'),
 (13, 'Menna', '01002151232', 'mennah555@gmail.com', '1470dcd9865e805ffb0622de5b32c8b660b11fd9', 'f', 'default.png', 1, 47828, '2021-01-11 11:22:07', '2021-01-11 11:22:07');
 
 -- --------------------------------------------------------
@@ -358,10 +458,9 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `code` (`code`),
-  ADD UNIQUE KEY `brand_id` (`brand_id`),
-  ADD UNIQUE KEY `supplie_id` (`supplie_id`),
-  ADD KEY `product_categories` (`categorie_id`);
+  ADD KEY `brand` (`brand_id`),
+  ADD KEY `supplier` (`supplier_id`),
+  ADD KEY `cat` (`sub_category_id`);
 
 --
 -- Indexes for table `product_images`
@@ -396,8 +495,8 @@ ALTER TABLE `roffersproducts`
 -- Indexes for table `rproductsorder`
 --
 ALTER TABLE `rproductsorder`
-  ADD KEY `productR` (`product_id`),
-  ADD KEY `ordersR` (`order_id`);
+  ADD PRIMARY KEY (`product_id`,`order_id`) USING BTREE,
+  ADD KEY `order` (`order_id`);
 
 --
 -- Indexes for table `specs`
@@ -447,19 +546,19 @@ ALTER TABLE `wishlist`
 -- AUTO_INCREMENT for table `address`
 --
 ALTER TABLE `address`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `coupons`
@@ -477,13 +576,13 @@ ALTER TABLE `offers`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `ratings`
@@ -501,13 +600,13 @@ ALTER TABLE `specs`
 -- AUTO_INCREMENT for table `sub_cate`
 --
 ALTER TABLE `sub_cate`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -530,7 +629,6 @@ ALTER TABLE `address`
 -- Constraints for table `cart`
 --
 ALTER TABLE `cart`
-  ADD CONSTRAINT `chart_product` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `chart_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -544,21 +642,14 @@ ALTER TABLE `orders`
 -- Constraints for table `products`
 --
 ALTER TABLE `products`
-  ADD CONSTRAINT `product_brand` FOREIGN KEY (`brand_id`) REFERENCES `brands` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `product_categories` FOREIGN KEY (`categorie_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `product_suppliers` FOREIGN KEY (`supplie_id`) REFERENCES `brands` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `product_images`
---
-ALTER TABLE `product_images`
-  ADD CONSTRAINT `Rproduct_images` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `brand` FOREIGN KEY (`brand_id`) REFERENCES `brands` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `cat` FOREIGN KEY (`sub_category_id`) REFERENCES `sub_cate` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `supplier` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `ratings`
 --
 ALTER TABLE `ratings`
-  ADD CONSTRAINT `product_rating` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user_rating` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -571,21 +662,14 @@ ALTER TABLE `regions`
 -- Constraints for table `roffersproducts`
 --
 ALTER TABLE `roffersproducts`
-  ADD CONSTRAINT `offer_relation_product` FOREIGN KEY (`offers_id`) REFERENCES `offers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `product_offers_relation` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `offer_relation_product` FOREIGN KEY (`offers_id`) REFERENCES `offers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `rproductsorder`
 --
 ALTER TABLE `rproductsorder`
-  ADD CONSTRAINT `ordersR` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `productR` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `specs`
---
-ALTER TABLE `specs`
-  ADD CONSTRAINT `product_specs` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `product` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `sub_cate`
@@ -597,7 +681,6 @@ ALTER TABLE `sub_cate`
 -- Constraints for table `wishlist`
 --
 ALTER TABLE `wishlist`
-  ADD CONSTRAINT `product_wishlist` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user_wishlist` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
