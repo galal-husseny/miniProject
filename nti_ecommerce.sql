@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 13, 2021 at 03:48 PM
+-- Generation Time: Jan 14, 2021 at 11:02 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.10
 
@@ -203,13 +203,13 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `price`, `details`, `photo`, `brand_id`, `sub_category_id`, `supplier_id`, `created_at`, `updated_at`) VALUES
-(1, 'yanson', 20.00, '1312asdas', 'product-1.jpg', 2, 1, 2, '2021-01-13 11:49:39', '2021-01-13 12:52:47'),
-(2, 'n3na3', 25.00, 'sdfmsl', 'product-2.jpg', 2, 1, 2, '2021-01-12 11:49:39', '2021-01-13 12:52:53'),
-(3, '2rfa', 15.00, 'lnjds', 'product-3.jpg', 2, 1, 2, '2021-01-12 22:00:00', '2021-01-13 12:52:59'),
-(4, 'gnzbel', 10.00, 'dsmf', 'product-4.jpg', 2, 2, 2, '2021-01-04 11:49:39', '2021-01-13 12:53:07'),
-(5, 'tlyo', 65.00, 'klmdv', 'product-5.jpg', 1, 4, 1, '2021-01-13 11:49:39', '2021-01-13 12:53:12'),
-(6, 'banbog', 30.00, 'sjns', 'product-6.jpg', 1, 3, 1, '2021-01-08 11:49:39', '2021-01-13 12:53:16'),
-(7, 'shay a5dr', 90.00, 'hhgjhnk', 'product-7.jpg', 1, 3, 1, '2021-01-13 11:49:39', '2021-01-13 12:53:21');
+(1, 'yanson', 20.00, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\r\n\r\nWhy do we use it?\r\nIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).', 'product-1.jpg', 2, 1, 2, '2021-01-13 11:49:39', '2021-01-14 08:45:51'),
+(2, 'n3na3', 25.00, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\r\n\r\nWhy do we use it?\r\nIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).', 'product-2.jpg', 2, 1, 2, '2021-01-12 11:49:39', '2021-01-14 08:45:51'),
+(3, '2rfa', 15.00, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\r\n\r\nWhy do we use it?\r\nIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).', 'product-3.jpg', 2, 1, 2, '2021-01-12 22:00:00', '2021-01-14 08:45:51'),
+(4, 'gnzbel', 10.00, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\r\n\r\nWhy do we use it?\r\nIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).', 'product-4.jpg', 2, 2, 2, '2021-01-04 11:49:39', '2021-01-14 08:45:51'),
+(5, 'tlyo', 65.00, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\r\n\r\nWhy do we use it?\r\nIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).', 'product-5.jpg', 1, 4, 1, '2021-01-13 11:49:39', '2021-01-14 08:45:51'),
+(6, 'banbog', 30.00, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\r\n\r\nWhy do we use it?\r\nIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).', 'product-6.jpg', 1, 3, 1, '2021-01-08 11:49:39', '2021-01-14 08:45:51'),
+(7, 'shay a5dr', 90.00, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\r\n\r\nWhy do we use it?\r\nIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).', 'product-7.jpg', 1, 3, 1, '2021-01-13 11:49:39', '2021-01-14 08:45:51');
 
 -- --------------------------------------------------------
 
@@ -225,6 +225,27 @@ CREATE TABLE `product_images` (
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `product_rating`
+-- (See below for the actual view)
+--
+CREATE TABLE `product_rating` (
+`id` int(10) unsigned
+,`name` varchar(255)
+,`price` float(10,2)
+,`details` text
+,`photo` varchar(255)
+,`brand_id` int(10) unsigned
+,`sub_category_id` int(10) unsigned
+,`supplier_id` int(10) unsigned
+,`created_at` timestamp
+,`updated_at` timestamp
+,`rating_count` bigint(21)
+,`rating_avg` decimal(11,0)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `ratings`
 --
 
@@ -234,6 +255,17 @@ CREATE TABLE `ratings` (
   `value` int(10) DEFAULT NULL,
   `comment` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ratings`
+--
+
+INSERT INTO `ratings` (`user_id`, `product_id`, `value`, `comment`) VALUES
+(12, 3, 4, 'gamda'),
+(12, 4, 3, 'w7sh'),
+(12, 6, 5, 'gamed'),
+(13, 3, 2, '7lwa'),
+(13, 4, 5, 'gamd');
 
 -- --------------------------------------------------------
 
@@ -387,6 +419,30 @@ INSERT INTO `users` (`id`, `name`, `phone`, `email`, `password`, `gender`, `phot
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `users_reviews`
+-- (See below for the actual view)
+--
+CREATE TABLE `users_reviews` (
+`id` int(10) unsigned
+,`name` text
+,`phone` varchar(13)
+,`email` varchar(25)
+,`password` varchar(255)
+,`gender` varchar(1)
+,`photo` varchar(255)
+,`status` tinyint(1)
+,`code` int(5)
+,`create_at` timestamp
+,`updated_at` timestamp
+,`user_id` int(10) unsigned
+,`product_id` int(10) unsigned
+,`value` int(10)
+,`comment` varchar(50)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `wishlist`
 --
 
@@ -394,6 +450,24 @@ CREATE TABLE `wishlist` (
   `user_id` int(10) UNSIGNED NOT NULL,
   `product_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `product_rating`
+--
+DROP TABLE IF EXISTS `product_rating`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `product_rating`  AS  select `products`.`id` AS `id`,`products`.`name` AS `name`,`products`.`price` AS `price`,`products`.`details` AS `details`,`products`.`photo` AS `photo`,`products`.`brand_id` AS `brand_id`,`products`.`sub_category_id` AS `sub_category_id`,`products`.`supplier_id` AS `supplier_id`,`products`.`created_at` AS `created_at`,`products`.`updated_at` AS `updated_at`,count(`ratings`.`product_id`) AS `rating_count`,if(round(avg(`ratings`.`value`),0) is null,0,round(avg(`ratings`.`value`),0)) AS `rating_avg` from (`products` left join `ratings` on(`products`.`id` = `ratings`.`product_id`)) group by `products`.`id` order by if(round(avg(`ratings`.`value`),0) is null,0,round(avg(`ratings`.`value`),0)) desc,count(`ratings`.`product_id`) desc ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `users_reviews`
+--
+DROP TABLE IF EXISTS `users_reviews`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `users_reviews`  AS  select `users`.`id` AS `id`,`users`.`name` AS `name`,`users`.`phone` AS `phone`,`users`.`email` AS `email`,`users`.`password` AS `password`,`users`.`gender` AS `gender`,`users`.`photo` AS `photo`,`users`.`status` AS `status`,`users`.`code` AS `code`,`users`.`create_at` AS `create_at`,`users`.`updated_at` AS `updated_at`,`ratings`.`user_id` AS `user_id`,`ratings`.`product_id` AS `product_id`,`ratings`.`value` AS `value`,`ratings`.`comment` AS `comment` from (`users` join `ratings` on(`users`.`id` = `ratings`.`user_id`)) ;
 
 --
 -- Indexes for dumped tables
@@ -473,9 +547,8 @@ ALTER TABLE `product_images`
 -- Indexes for table `ratings`
 --
 ALTER TABLE `ratings`
-  ADD PRIMARY KEY (`user_id`),
-  ADD UNIQUE KEY `user_id` (`user_id`),
-  ADD UNIQUE KEY `product_id` (`product_id`);
+  ADD PRIMARY KEY (`user_id`,`product_id`) USING BTREE,
+  ADD KEY `prod` (`product_id`);
 
 --
 -- Indexes for table `regions`
@@ -588,7 +661,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `ratings`
 --
 ALTER TABLE `ratings`
-  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `specs`
@@ -650,6 +723,7 @@ ALTER TABLE `products`
 -- Constraints for table `ratings`
 --
 ALTER TABLE `ratings`
+  ADD CONSTRAINT `prod` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user_rating` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --

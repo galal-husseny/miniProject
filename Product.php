@@ -112,6 +112,19 @@ class Product extends database implements operations{
        return $this->runDQL($query);
     }
 
+    public function getSingleProduct()
+    {
+      $query = "SELECT `product_rating`.* FROM `product_rating` WHERE `product_rating`.`id` = $this->id";
+      return $this->runDQL($query);
+
+    }
+
+    public function getReviewsByProduct()
+    {
+      $query = "SELECT `users_reviews`.* FROM `users_reviews` WHERE `users_reviews`.`product_id` = $this->id ";
+      return $this->runDQL($query);
+    }
+
 
 
     

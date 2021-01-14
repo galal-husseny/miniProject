@@ -4,7 +4,7 @@
         <div class="breadcrumb-content text-center">
             <h3>SHOP PAGE</h3>
             <ul>
-                <li><a href="index.html">Home</a></li>
+                <li><a href="index.php">Home</a></li>
                 <li class="active">SHOP PAGE</li>
             </ul>
         </div>
@@ -64,7 +64,7 @@
                                     <div class="product-width col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 mb-30">
                                         <div class="product-wrapper">
                                             <div class="product-img">
-                                                <a href="product-details.html">
+                                                <a href="product-details.php?pro=<?php echo $value['id'] ?>">
                                                     <img alt="" src="assets/img/product/<?php echo $value['photo'] ?>">
                                                 </a>
                                                 <span>-30%</span>
@@ -84,11 +84,11 @@
                                                 <div class="product-hover-style">
                                                     <div class="product-title">
                                                         <h4>
-                                                            <a href="product-details.html"><?php echo $value['name'] ?></a>
+                                                            <a href="product-details.php?pro=<?php echo $value['id'] ?>"><?php echo $value['name'] ?></a>
                                                         </h4>
                                                     </div>
                                                     <div class="cart-hover">
-                                                        <h4><a href="product-details.html">+ Add to cart</a></h4>
+                                                        <h4><a href="product-details.php?pro=<?php echo $value['id'] ?>">+ Add to cart</a></h4>
                                                     </div>
                                                 </div>
                                                 <div class="product-price-wrapper">
@@ -98,7 +98,7 @@
                                             </div>
                                             <div class="product-list-details">
                                                 <h4>
-                                                    <a href="product-details.html"><?php echo $value['name'] ?></a>
+                                                    <a href="product-details.php?pro=<?php echo $value['id'] ?>"><?php echo $value['name'] ?></a>
                                                 </h4>
                                                 <div class="product-price-wrapper">
                                                     <span><?php echo $value['price'] ?></span>
